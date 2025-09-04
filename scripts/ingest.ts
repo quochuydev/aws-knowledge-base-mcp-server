@@ -4,6 +4,7 @@ import fs from "fs";
 import OpenAI from "openai";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
+import { encodingForModel } from "js-tiktoken";
 
 config();
 
@@ -14,6 +15,20 @@ const qdrant = new QdrantClient({
   apiKey: process.env.QDRANT_API_KEY,
 });
 
+function chunkText(text, maxTokens = 8000) {
+  const enc = encodingForModel("text-embedding-3-small");
+
+  const tokens = enc.encode(text);
+  const chunks: string[] = [];
+
+  for (let i = 0; i < tokens.length; i += maxTokens) {
+    const chunk = tokens.slice(i, i + maxTokens);
+    chunks.push(enc.decode(chunk));
+  }
+
+  return chunks;
+}
+
 async function ingest() {
   try {
     await qdrant.getCollection("docs");
@@ -23,10 +38,7 @@ async function ingest() {
 
     if (error.status === 404) {
       await qdrant.createCollection("docs", {
-        vectors: {
-        size: 1536, // text-embedding-3-small
-          distance: "Cosine",
-        },
+        vectors: { size: 1536, distance: "Cosine" },
       });
     }
   }
@@ -36,9 +48,8 @@ async function ingest() {
 
   for (const file of files) {
     const content = fs.readFileSync(path.join(filesDir, file), "utf-8");
-    const chunks = content.split(/\n\s*\n/).filter(Boolean);
-
-    console.log(`Processing ${file}, ${chunks.length} chunks`);
+    const chunks = chunkText(content);
+    console.log(`debug:chunks.length`, chunks.length);
 
     for (let i = 0; i < chunks.length; i++) {
       const chunk = chunks[i];
