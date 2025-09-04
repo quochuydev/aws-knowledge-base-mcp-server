@@ -4,6 +4,7 @@ import { QdrantClient } from "@qdrant/js-client-rest";
 export async function retrieve(env: Record<string, string>, text: string) {
   // 1. Init clients
   const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
+
   const qdrant = new QdrantClient({
     url: env.QDRANT_URL,
     apiKey: env.QDRANT_API_KEY,

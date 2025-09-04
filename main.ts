@@ -7,14 +7,10 @@ async function main() {
   const env = process.env as Record<string, string>;
 
   const query = "What is in the docs?";
+
   const { answer, sources } = await retrieve(env, query);
 
-  console.log("Answer:", answer);
-
-  console.log(
-    "Sources:",
-    sources.map((s) => s.payload)
-  );
+  console.log(`Answer: ${answer}\nSources:\n`, sources.length);
 }
 
 main().catch(console.error);
