@@ -15,7 +15,8 @@
     "express": "5.1.0",
     "fs": "0.0.1-security",
     "openai": "5.19.1",
-    "tsx": "4.20.5"
+    "tsx": "4.20.5",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^24.3.0"

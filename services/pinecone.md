@@ -13,7 +13,9 @@ await pc.createIndexForModel({
   region: "us-east-1",
   embed: {
     model: "llama-text-embed-v2",
-    fieldMap: { text: "chunk_text" },
+    fieldMap: {
+      text: "chunk_text",
+    },
   },
   waitUntilReady: true,
 });
