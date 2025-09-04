@@ -1,14 +1,20 @@
-import { QdrantClient } from "@qdrant/js-client-rest";
-import "dotenv/config";
+import { config } from "dotenv";
+import { retrieve } from "./services/retrieve";
 
-const client = new QdrantClient({
-  url: process.env.QDRANT_URL,
-  apiKey: process.env.QDRANT_API_KEY,
-});
+config();
 
-try {
-  const result = await client.getCollections();
-  console.log("List of collections:", result.collections);
-} catch (err) {
-  console.error("Could not get collections:", err);
+async function main() {
+  const env = process.env as Record<string, string>;
+
+  const query = "What is in the docs?";
+  const { answer, sources } = await retrieve(env, query);
+
+  console.log("Answer:", answer);
+
+  console.log(
+    "Sources:",
+    sources.map((s) => s.payload)
+  );
 }
+
+main().catch(console.error);
