@@ -1,0 +1,20 @@
+{
+  "name": "aws-knowledge-base-mcp-server",
+  "version": "1.0.0",
+  "description": "```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@qdrant/js-client-rest": "1.15.1",
+    "express": "5.1.0",
+    "fs": "0.0.1-security",
+    "tsx": "4.20.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0"
+  }
+}
