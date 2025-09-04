@@ -1,15 +1,17 @@
 {
   "name": "aws-knowledge-base-mcp-server",
   "version": "1.0.0",
-  "description": "```",
-  "main": "index.js",
+  "description": "AWS Knowledge Base MCP Server",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsx main.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@qdrant/js-client-rest": "1.15.1",
+    "dotenv": "^17.2.2",
     "express": "5.1.0",
     "fs": "0.0.1-security",
     "tsx": "4.20.5"
