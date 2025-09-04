@@ -6,7 +6,12 @@ export function createOpenAIService(apiKey: string) {
   async function generateAnswer(prompt: string): Promise<string> {
     const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
     });
     return response.choices[0]?.message?.content ?? "";
   }
