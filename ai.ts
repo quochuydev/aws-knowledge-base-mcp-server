@@ -1,7 +1,7 @@
 import { config } from "dotenv";
+import { createAnthropicService } from "./services/anthropic";
 import { createOpenAIService } from "./services/openai";
 import { createQdrantService } from "./services/qdrant";
-import { createAnthropicService } from "./services/anthropic";
 
 config();
 

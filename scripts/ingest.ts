@@ -40,7 +40,7 @@ async function ingest() {
     }
   }
 
-  const filesDir = path.resolve("./files");
+  const filesDir = path.resolve("./docs");
   const files = fs.readdirSync(filesDir).filter((f) => f.endsWith(".md"));
 
   for (const file of files) {

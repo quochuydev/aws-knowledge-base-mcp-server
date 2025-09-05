@@ -22,9 +22,5 @@ export function createAnthropicService(apiKey: string) {
     return response.content.find((c) => c.type === "text")?.text ?? "";
   }
 
-  async function embed(text: string): Promise<number[]> {
-    throw new Error("Anthropic API does not provide embeddings yet.");
-  }
-
-  return { generateAnswer, embed };
+  return { generateAnswer };
 }
