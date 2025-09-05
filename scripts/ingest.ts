@@ -1,10 +1,10 @@
 import { QdrantClient } from "@qdrant/js-client-rest";
 import { config } from "dotenv";
 import fs from "fs";
+import { encodingForModel } from "js-tiktoken";
 import OpenAI from "openai";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
-import { encodingForModel } from "js-tiktoken";
 
 config();
 
@@ -33,9 +33,6 @@ async function ingest() {
   try {
     await qdrant.getCollection("docs");
   } catch (error: any) {
-    console.log(`debug:error.message`, error.message);
-    console.log(`debug:error.status`, error.status);
-
     if (error.status === 404) {
       await qdrant.createCollection("docs", {
         vectors: { size: 1536, distance: "Cosine" },
