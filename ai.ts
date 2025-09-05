@@ -5,7 +5,7 @@ import { createQdrantService } from "./services/qdrant";
 
 config();
 
-export const retrieve = async () => {
+export const retrieve = async (query: string) => {
   const env = process.env as Record<string, string>;
 
   const openaiService = createOpenAIService(env.OPENAI_API_KEY);
@@ -17,16 +17,14 @@ export const retrieve = async () => {
     apiKey: env.QDRANT_API_KEY,
   });
 
-  const text = "What is in the docs?";
-
-  const vector = await openaiService.embed(text);
+  const vector = await openaiService.embed(query);
   const sources = await qdrantService.searchDocs(vector);
 
   const context = sources.map((r) => r.payload?.text ?? "").join("\n---\n");
 
   const answer = await anthropicService.generateAnswer(
     "You are a helpful assistant. Answer using the provided context if relevant.",
-    `Context:${context}\n\nQuestion: ${text}`
+    `Context:${context}\n\nQuestion: ${query}`
   );
 
   console.log(`Answer: ${answer}`);

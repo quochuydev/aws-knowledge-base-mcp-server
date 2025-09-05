@@ -16,7 +16,7 @@ server.tool(
   "Search for documentation of infrastructure and Model Context Protocol specification.",
   { query: z.string() },
   async ({ query }) => {
-    const results = await ai.retrieve();
+    const results = await ai.retrieve(query);
 
     const content: CallToolResult["content"] = [
       {
@@ -41,7 +41,7 @@ app.post("/mcp", (req: Request, res: Response) =>
   transport.handleRequest(req, res, req.body)
 );
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8088;
 
 server
   .connect(transport)
